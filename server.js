@@ -4,12 +4,60 @@ var path = require('path');
 
 var app = express();
 app.use(morgan('combined'));
+var articleOne={
+    title:'article one',
+    heading:'august 11 2017',
+    content:'this is my first code testing code for checking html and css'
+    
+};
+function createTemplate (data){
+var title=data.title;
+var heading=data.heading;
+var content=data.content;
+var htmlTemplate=`
+<html>
+    <head>
+    <title>
+        article-1
+        </title>
+        <style>
+        .container
+        {
+            max-width=800px;
+            margin=0 auto;
+            color=grey;
+            
+        }
+        </style>
+        </head>
+        <body>
+            <div class=".container">
+                             <div>
+                             <a href="/">home</a>
+                            </div>
+                                  ${title}
+                    ${heading}
+                   <div>
+                      <p>
+                        ${content}
+                     </p>
+                 </div>
+            </div>
+            </body>
+</html>
+`;
+
+
+return htmlTemplate ;
+
+}
+
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 app.get('/article-1',function(req,res){
-  res.sendFile(path.join(__dirname, 'ui', 'article-1.html'));
+  res.send(createTemplate(articleOne));
 }
 );
 app.get('/ui/style.css', function (req, res) {
